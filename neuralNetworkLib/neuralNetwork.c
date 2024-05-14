@@ -466,8 +466,8 @@ void computeGradients(Network *network, float *expectedOutputs, int outputActiva
     if (outputActivation == 4) {
         // softmax (softmax will automatically use cross entropy as the cost function)
 
-        // difference between expected and actual output (cross entropy cost function)
-        // the derivative of the softmax function is the difference between the predicted and expected values
+        // cross entropy gradient is calculated as the difference between the target value and the predicted value for that output
+        // predicted_value - target_value
         for (int outputNeuron = 0; outputNeuron < network->layers[outputLayerIndex].neuronCount; outputNeuron++) {
             network->layers[outputLayerIndex].gradients[outputNeuron] = network->layers[outputLayerIndex].values[outputNeuron] - expectedOutputs[outputNeuron];
         }
