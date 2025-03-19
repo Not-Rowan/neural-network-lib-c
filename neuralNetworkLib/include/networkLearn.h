@@ -29,4 +29,16 @@ void averageAccumulatedGradients(Network *network, int gradientCount);
 // this function is basically just stochastic gradient descent
 void backPropagate(Network *network, float *expectedOutputs);
 
+
+// computes weighted sums for a given layer
+void computeWeightedSums(Network *network, int layer);
+
+// computes weighted errors for a given layer
+void computeWeightedErrors(Network *network, int layer);
+
+// helper functions to compute layer gradients
+void computeLayerGradients(Network *network, int layer, float *error);
+void updateBiasGradient(Network *network, int layer, int neuron, float error);
+void updateWeightGradient(Network *network, int layer, int neuron, float error);
+
 #endif

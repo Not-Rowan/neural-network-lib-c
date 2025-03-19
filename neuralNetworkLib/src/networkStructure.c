@@ -46,9 +46,6 @@ Network *createNetwork(int inputNeurons, int hiddenLayers, int *hiddenNeurons, i
         network->activationFunctions[i] = activationFunctions[i];
     }
 
-    // set unused network structure variables to zero
-    network->layers[0].squaredErrorValues = NULL;
-
     // Create input layer (no incoming weights for the input layer)
     if (initializeLayer(&network->layers[0], inputNeurons, 0) < 0) {
         freeNetwork(network);
@@ -74,9 +71,6 @@ Network *createNetwork(int inputNeurons, int hiddenLayers, int *hiddenNeurons, i
             return NULL;
         }
 
-        // set unused network structure variables to zero
-        network->layers[0].squaredErrorValues = NULL;
-
         // Initialize hidden layer with random weights and biases between -0.3 and 0.3
         for (int currentHiddenNeuron = 0; currentHiddenNeuron < network->layers[currentHiddenLayer].neuronCount; currentHiddenNeuron++) {
             // assign random weights to each incoming weight and initialize the weight gradients and accumulated weight gradients
@@ -101,14 +95,6 @@ Network *createNetwork(int inputNeurons, int hiddenLayers, int *hiddenNeurons, i
     if (initializeLayer(&network->layers[outputLayerIndex], outputNeurons, network->layers[outputLayerIndex - 1].neuronCount) < 0) {
         freeNetwork(network);
         handleError("failed to allocate output layer.");
-        return NULL;
-    }
-
-    // allocate squared error values array for output layer
-    network->layers[outputLayerIndex].squaredErrorValues = malloc(outputNeurons * sizeof(float));
-    if (network->layers[outputLayerIndex].squaredErrorValues == NULL) {
-        freeNetwork(network);
-        handleError("failed to allocate squared error values array for output layer.");
         return NULL;
     }
 
@@ -160,6 +146,13 @@ int initializeLayer(Layer *layer, int neuronCount, int previousNeuronCount) {
     layer->biasGradients = malloc(neuronCount * sizeof(float));
     if (layer->biasGradients == NULL) {
         handleError("failed to allocate biasGradients array for layer.");
+        return ERR_ALLOC;
+    }
+
+    // allocate error values array
+    layer->errorValues = malloc(neuronCount * sizeof(float));
+    if (layer->errorValues == NULL) {
+        handleError("failed to allocate squared error values array for output layer.");
         return ERR_ALLOC;
     }
 
@@ -260,9 +253,9 @@ void freeNetwork(Network *network) {
             network->layers[currentLayer].accumulatedBiasGradients = NULL;
         }
 
-        if (network->layers[currentLayer].squaredErrorValues != NULL) {
-            free(network->layers[currentLayer].squaredErrorValues);
-            network->layers[currentLayer].squaredErrorValues = NULL;
+        if (network->layers[currentLayer].errorValues != NULL) {
+            free(network->layers[currentLayer].errorValues);
+            network->layers[currentLayer].errorValues = NULL;
         }
 
         if (network->layers[currentLayer].weightedSums != NULL) {

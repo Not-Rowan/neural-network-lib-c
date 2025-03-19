@@ -26,7 +26,7 @@ typedef struct Layer {
     float *accumulatedBiasGradients;          // stores the accumulated bias gradients
     float *weightedSums;                      // used to store the weighted sum during the forward pass step
     float *weightedErrors;                    // used to store the weighted errors (resulting matrix after multiplying the incoming weights by the gradients)
-    float *squaredErrorValues;                // used to store the values for the squared error in the output layer
+    float *errorValues;                       // used to store the error values in the output layer
     float *activationFunctionDerivatives;     // used to store the derivatives of the activation functions
     int neuronCount;                          // number of neurons in this layer
     

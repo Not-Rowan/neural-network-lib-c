@@ -1,6 +1,9 @@
 # Variables
 CC = clang
-CFLAGS = -Wall -Wextra -O2 -Iinclude
+CFLAGS = -Wall -Wextra -O2 -Iinclude -I/opt/homebrew/opt/openblas/include  # Add flags for new LAPACK interface
+CFLAGS += -DACCELERATE_NEW_LAPACK -DACCELERATE_LAPACK_ILP64  # Enable new CBLAS interface and ILP64 support
+LDFLAGS = -framework Accelerate  # Link against Accelerate framework
+
 SRC_DIR = src
 OBJ_DIR = obj
 LIB_DIR = lib
@@ -38,5 +41,3 @@ install:
 uninstall:
 	rm -rf /usr/local/include/neuralNetworkLib
 	rm -f /usr/local/lib/libneuralNetworkLib.a
-
-# Note: the file names in include and lib must have a lib prefix at the start or else it will not link

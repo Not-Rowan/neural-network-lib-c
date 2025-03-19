@@ -25,4 +25,9 @@ void linear(float *values, float *returnValues, int length);
 void linearDerivative(float *values, float *returnValues, int length);
 void softmax(float *values, float *returnValues, int length);
 
+// define ActivationFunction type and declare activation function & derivative arrays
+typedef void (*ActivationFunction)(float*, float*, int);
+extern ActivationFunction activationFunctionsPtr[];
+extern ActivationFunction activationFunctionDerivativesPtr[];
+
 #endif

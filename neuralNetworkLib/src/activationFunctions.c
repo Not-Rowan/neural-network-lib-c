@@ -2,6 +2,10 @@
 
 #include "activationFunctions.h"
 
+// Create a function pointer array for activation functions and another one for their derivatives
+ActivationFunction activationFunctionsPtr[] = {sigmoid, relu, tanhActivation, linear, softmax};
+ActivationFunction activationFunctionDerivativesPtr[] = {sigmoidDerivative, reluDerivative, tanhDerivative, linearDerivative};
+
 // Activation function (sigmoid)
 // input is a vector of values
 // the result is stored in a vector passed in as a parameter
