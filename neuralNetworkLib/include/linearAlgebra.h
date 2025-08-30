@@ -13,8 +13,6 @@ enum Method { BASIC, BLAS };
 extern int LIN_ALG_METHOD_SELECTION;  // Declaration only
 
 
-// functions to set and get LIN_ALG_METHOD_SELECTION
-
 // setLinAlgSelectedMethod() sets the LIN_ALG_METHOD_SELECTION variable
 // Parameters:
 //     - value: BASIC or BLAS from Method enum
@@ -29,8 +27,6 @@ void setLinAlgSelectedMethod(int value);
 //     - Enum code (0 for BASIC and 1 for BLAS)
 int getLinAlgSelectedMethod();
 
-// multiplies two float matricies
-
 // floatMatrixMultiply() multiplies two float matrices into a return matrix (matC)
 // Parameters:
 //     - matA: input matrix A
@@ -44,8 +40,6 @@ int getLinAlgSelectedMethod();
 //     - Nothing
 void floatMatrixMultiply(float *matA, float *matB, float *matC, int rowsA, int colsA, int rowsB, int colsB);
 
-// prints a matrix
-
 // printMatrix() prints the structure and values of a given matrix
 // Parameters:
 //     - matrix: matrix to print
@@ -54,8 +48,6 @@ void floatMatrixMultiply(float *matA, float *matB, float *matC, int rowsA, int c
 // Return:
 //     - None
 void printMatrix(float *matrix, int rows, int cols);
-
-// adds two vectors
 
 // floatVectorAdd() adds two float vectors into a return vector (vecC)
 // Parameters:
