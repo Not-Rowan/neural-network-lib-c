@@ -212,7 +212,7 @@ int initializeLayer(Layer *layer, int neuronCount, int previousNeuronCount) {
         return ERR_ALLOC;
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 // free network

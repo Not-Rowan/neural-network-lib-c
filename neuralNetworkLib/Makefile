@@ -40,4 +40,5 @@ install:
 # Uninstall library (optional)
 uninstall:
 	rm -rf /usr/local/include/neuralNetworkLib
+# Note: the file names in include and lib must have a lib prefix at the start or else it will not link
 	rm -f /usr/local/lib/libneuralNetworkLib.a

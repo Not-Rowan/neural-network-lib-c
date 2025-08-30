@@ -129,6 +129,9 @@ void averageAccumulatedGradients(Network *network, int gradientCount) {
         for (int currentNeuron = 0; currentNeuron < network->layers[currentLayer].neuronCount; currentNeuron++) {
             network->layers[currentLayer].accumulatedBiasGradients[currentNeuron] /= gradientCount;
 
+            // skip input layer (layer 0 has no previous layer)
+            if (currentLayer == 0) continue;
+
             for (int previousNeuronIndex = 0; previousNeuronIndex < network->layers[currentLayer-1].neuronCount; previousNeuronIndex++) {
                 network->layers[currentLayer].accumulatedWeightGradients[currentNeuron * network->layers[currentLayer-1].neuronCount + previousNeuronIndex] /= gradientCount;
             }
@@ -169,6 +172,7 @@ void computeWeightedSums(Network *network, int layer) {
 // Helper function to compute weighted errors
 void computeWeightedErrors(Network *network, int layer) {
     // calculate the weighted error for the gradient
+    // Little hack:
     // instead of transposing the weight matrix for the gradient calculation, i can just transpose the gradients vector and swap their places in the function to replicate the same thing.
     // instead of matA (transposed) * matB i can just swap matA and matB then transpose the new matA instead
     // Instead of this:

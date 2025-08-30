@@ -7,7 +7,11 @@
 #define ERR_DIM_MISMATCH -3
 #define ERR_UNEXPECTED_VAL -4
 
-// prints an error message. basically useless since this is just a wrapper for fprintf that does nothing more
+// handleError() prints an error to stderr using fprintf based on a given message
+// Parameters:
+//     - message: a string containing the error message (e.g. "unexpected value for function1().")
+// Return:
+//     - Nothing
 void handleError(const char * message);
 
 #endif
